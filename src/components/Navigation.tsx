@@ -11,7 +11,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { getCartCount } = useCart();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -31,8 +31,8 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow">
-              <Leaf 
-                className="h-4 w-4 md:h-6 md:w-6" 
+              <Leaf
+                className="h-4 w-4 md:h-6 md:w-6"
                 style={{ color: 'hsl(145, 92%, 91%)' }}
               />
             </div>
@@ -50,11 +50,10 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`font-medium transition-smooth hover:text-primary ${
-                  isActive(item.path)
+                className={`font-medium transition-smooth hover:text-primary ${isActive(item.path)
                     ? "text-primary border-b-2 border-primary"
                     : "text-foreground"
-                }`}
+                  }`}
               >
                 {item.name}
               </Link>
@@ -88,10 +87,29 @@ const Navigation = () => {
               </Button>
             )}
             {/* Only show profile icon when authenticated */}
-            {isAuthenticated && (
-              <Link to="/profile" className="text-muted-foreground hover:text-primary transition-colors">
+            {/* {isAuthenticated && (
+              <Link to="http://127.0.0.1:8000/admin" className="text-muted-foreground hover:text-primary transition-colors">
                 <User className="h-5 w-5" />
               </Link>
+            )} */}
+            {isAuthenticated && (
+              <>
+                {user?.role === "admin" ? (
+                  <Link
+                    to="http://127.0.0.1:8000/admin"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <User className="h-5 w-5" />
+                  </Link>
+                ) : (
+                  <Link
+                    to="http://127.0.0.1:8000/dashboard/orders"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <User className="h-5 w-5" />
+                  </Link>
+                )}
+              </>
             )}
             <Link to="/cart" className="relative text-muted-foreground hover:text-primary transition-colors">
               <ShoppingCart className="h-5 w-5" />
@@ -105,7 +123,7 @@ const Navigation = () => {
 
           {/* Mobile Actions - Show Cart and Profile Always */}
           <div className="md:hidden flex items-center space-x-3">
-                        {/* Profile Icon - Only when authenticated */}
+            {/* Profile Icon - Only when authenticated */}
             {isAuthenticated && (
               <Link to="/profile" className="text-muted-foreground hover:text-primary transition-colors">
                 <User className="h-5 w-5" />
@@ -142,11 +160,10 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`block px-4 py-3 rounded-xl font-medium transition-smooth ${
-                    isActive(item.path) 
-                      ? "bg-primary/10 text-primary border border-primary/20" 
+                  className={`block px-4 py-3 rounded-xl font-medium transition-smooth ${isActive(item.path)
+                      ? "bg-primary/10 text-primary border border-primary/20"
                       : "text-foreground hover:bg-secondary hover:text-primary"
-                  }`}
+                    }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}

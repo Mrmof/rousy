@@ -54,42 +54,40 @@ const Login = () => {
       setIsSubmitted(false);
       return;
     }
-
     try {
-      // Simulate login process with a delay
-      setTimeout(() => {
-        try {
-          // Simulate authentication check (in real app, this would be an API call)
-          if (formData.email && formData.password) {
-            // Create a user object to pass to login function
-            const userData = {
-              id: "user-" + Date.now(), // Generate a temporary ID
-              name: formData.email.split('@')[0], // Use email prefix as name
-              email: formData.email,
-              phone: "",
-              address: "",
-              city: "",
-              zipCode: ""
-            };
-            
-            // Call the login function from AuthContext
-            login(userData);
-            
-            // Navigate to home page after successful login
-            navigate('/');
-          } else {
-            setError("Invalid email or password");
-          }
-        } catch (err) {
-          setError("Invalid email or password");
-        } finally {
-          setIsSubmitted(false);
-        }
-      }, 1500);
-    } catch (err) {
-      setError("An error occurred during login");
+      const response = await fetch("http://127.0.0.1:8000/api/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json", // important for Laravel
+        },
+        body: JSON.stringify({
+          
+          email: formData.email,
+          password: formData.password,
+          
+        }),
+      });
+
+      // Parse response only ONCE
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Signin successful:", data);
+        login(data.user);
+        // navigate("/");
+        alert("Signin successful: " + JSON.stringify(data));
+      } else {
+        console.error("Signin error:", data);
+        alert("Signin failed: " + (data.message || "Unknown error"));
+      }
+    } catch (error) {
+      console.error("Signin failed:", error);
+      alert("Signin failed: " + error.message);
+    } finally {
       setIsSubmitted(false);
     }
+    
   };
 
   const handleInputChange = (e) => {

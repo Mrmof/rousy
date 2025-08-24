@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Admin;
 
 class UserController extends Controller
 {
@@ -30,5 +31,35 @@ class UserController extends Controller
         ]);
 
         return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
+    }
+
+    public function signin(Request $request)
+    {
+        $rules = [
+            'email' => 'required|email|max:255',
+            'password' => 'required|string|min:6',
+        ];
+        $request->validate($rules);
+
+        $admin = Admin::where('email', $request->input('email'))
+                    ->first();
+
+        if ($admin) {
+           if ($request->input('password') === $admin->password) {
+               session(['admin_id' => $admin->id]);
+               return response()->json(['message' => 'Admin signed in successfully', 'admin' => $admin, 'role' => 'admin'], 200);
+           }
+        }else {
+            $user = User::where('email', $request->input('email'))
+                        ->first();
+            if ($user) {
+                if ($request->input('password') === $user->password) {
+                    session(['user_id' => $user->id]);
+                    return response()->json(['message' => 'User signed in successfully', 'user' => $user, 'role' => 'user'], 200);
+                }
+            }
+        }
+
+        return response()->json(['message' => 'Invalid credentials'], 401);
     }
 }
