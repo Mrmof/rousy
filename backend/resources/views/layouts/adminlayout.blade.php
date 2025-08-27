@@ -16,6 +16,10 @@
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/icofont (1)/icofont.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/icofont (1)/icofont.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/iziToast-master/dist/css/iziToast.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/iziToast-master/dist/css/iziToast.min.css') }}">
+    <script src="{{ asset('assets/iziToast-master/dist/js/iziToast.js') }}"></script>
+    <script src="{{ asset('assets/iziToast-master/dist/js/iziToast.min.js') }}"></script>
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- CSS Files -->
@@ -227,6 +231,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets/js/argon-dashboard.min.js?v=2.1.0')}}"></script>
+    
 </body>
 
 </html>

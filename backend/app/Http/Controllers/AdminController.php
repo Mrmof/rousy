@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HeroModel;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -17,7 +18,8 @@ class AdminController extends Controller
     }
     public function hero()
     {
-        return view('admin.hero', ['info' => $this->info]);
+        $hero = HeroModel::all();
+        return view('admin.hero', ['info' => $this->info, 'heropages' => $hero]);
     }
     public function product_category()
     {
