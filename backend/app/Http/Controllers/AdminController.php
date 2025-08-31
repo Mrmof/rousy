@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\HeroModel;
+use App\Models\ProductCategoryModel;
+use App\Models\ProductModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -23,33 +26,45 @@ class AdminController extends Controller
     }
     public function product_category()
     {
-        return view('admin.product_category', ['info' => $this->info]);
+        $categories = new ProductCategoryModel();
+        $categories = ProductCategoryModel::all();
+        return view('admin.product_category', ['info' => $this->info, 'categories' => $categories]);
     }
-    public function product_category_details()
+    public function product_category_details($id)
     {
-        $product = [
-            'name' => 'Sample Laptop',
-            'description' => 'A powerful laptop with 16GB RAM, 512GB SSD, and Intel i7 processor.',
-            'price' => 1200.00,
-            'category' => 'Electronics',
-            'stock' => 15,
-            'image' => asset('assets/img/product-sample.jpg'), // place a dummy image here
-            'created_at' => now()->subDays(5)->toDateTimeString(),
-            'updated_at' => now()->toDateTimeString(),
-        ];
-        return view('admin.product_category_details', ['info' => $this->info, 'product' => $product]);
+        $category = ProductCategoryModel::find($id);
+        $products = ProductModel::where('category_id', $id)->get();
+        if ($category) {
+            return view('admin.product_category_details', ['info'=>$this->info, 'category' => $category, 'products' => $products]);
+        }else {
+            return redirect()->route('admin.product_category')->with('error', 'Product category not found.');
+        }
     }
     public function products()
     {
-        return view('admin.products', ['info' => $this->info]);
+        $product_category = ProductCategoryModel::all();
+        $products = ProductModel::all();
+        return view('admin.products', ['info' => $this->info, 'categories' => $product_category, 'products' => $products]);
     }
+    public function restock_product($product_id)
+    {
+        $product = ProductModel::find($product_id);
+        return view('admin.restock_product', ['info' => $this->info, 'product' => $product]);
+    }
+    public function edit_product($product_id)
+    {
+        $product = ProductModel::find($product_id);
+        return view('admin.edit_product', ['info' => $this->info, 'product' => $product]);
+    }
+
     public function sales()
     {
         return view('admin.sales', ['info' => $this->info]);
     }
     public function users()
     {
-        return view('admin.users', ['info' => $this->info]);
+        $users = User::all();
+        return view('admin.users', ['info' => $this->info, 'users' => $users]);
     }
     public function orders()
     {

@@ -14,13 +14,55 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="" method="POST">
+                    <form action="{{ route('admin.category.add')}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                            @if (session('success'))
+                                <script>
+                                    iziToast.show({
+                                        title: 'Success',
+                                        message: "{{ session('success') }}",
+                                        color: 'green'
+                                    });
+                                </script>
+                            @endif
+                            @error('name')
+                                <script>
+                                    iziToast.show({
+                                        title: 'Error',
+                                        message: "{{ $message }}",
+                                        color: 'red'
+                                    });
+                                </script>
+                            @enderror
                         <div class="form-group mb-3">
                             <label for="categoryName">Category Name</label>
                             <input type="text" class="form-control" id="categoryName" name="name"
                                 placeholder="Enter category name" required>
                         </div>
+                        @error('categoryImage')
+                                <script>
+                                    iziToast.show({
+                                        title: 'Error',
+                                        message: "{{ $message }}",
+                                        color: 'red'
+                                    });
+                                </script>
+                            @enderror
+                        <div class="form-group mb-3">
+                            <label for="categoryImage">Category Image</label>
+                            <input type="file" class="form-control" id="categoryImage" name="categoryImage"
+                                accept="image/*" required>
+
+                        </div>
+                        @error('description')
+                                <script>
+                                    iziToast.show({
+                                        title: 'Error',
+                                        message: "{{ $message }}",
+                                        color: 'red'
+                                    });
+                                </script>
+                            @enderror
                         <div class="form-group mb-3">
                             <label for="categoryDescription">Description</label>
                             <textarea class="form-control" id="categoryDescription" name="description" rows="3"
@@ -41,49 +83,24 @@
                 <div class="card-body">
                     <div class="row g-3">
                         <!-- Category Card -->
+                        @forelse($categories as $category)
                         <div class="col-md-3">
-                            <div class="card border border-1 shadow-sm h-100">
+                            
+                            <div class="card border border-1 shadow-sm h-100" style="background-image: url('{{ asset('category_images/' . $category->product_category_photo) }}'); background-size: cover; background-position: center;">
                                 <div class="card-body text-center">
-                                    <h4 class="fw-bold">Electronics</h4>
-                                    <p class="text-muted small">Devices, gadgets, and more</p>
-                                    <a href="" class="btn btn-outline-primary btn-sm">View
-                                        Details</a>
+                                    <h4 class="fw-bold">{{ $category->category_name }}</h4>
+                                    <p class="small text-white">{{ $category->description }}</p>
+                                    <a href="{{ route('admin.product_category_details', ['id' => $category->id])}}" class="btn btn-outline-primary btn-sm bg-dark text-white">View Details</a>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <div class="card border border-1 shadow-sm h-100">
-                                <div class="card-body text-center">
-                                    <h4 class="fw-bold">Clothing</h4>
-                                    <p class="text-muted small">Men & Women fashion</p>
-                                    <a href="" class="btn btn-outline-primary btn-sm">View
-                                        Details</a>
-                                </div>
+                        @empty
+                        <div class="col-12">
+                            <div class="alert alert-warning text-center">
+                                No categories found.
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <div class="card border border-1 shadow-sm h-100">
-                                <div class="card-body text-center">
-                                    <h4 class="fw-bold">Books</h4>
-                                    <p class="text-muted small">E-books, novels, learning</p>
-                                    <a href="" class="btn btn-outline-primary btn-sm">View
-                                        Details</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="card border border-1 shadow-sm h-100">
-                                <div class="card-body text-center">
-                                    <h4 class="fw-bold">Home & Living</h4>
-                                    <p class="text-muted small">Furniture & decor</p>
-                                    <a href="" class="btn btn-outline-primary btn-sm">View
-                                        Details</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforelse
                         <!-- End Category Card -->
                     </div>
                 </div>

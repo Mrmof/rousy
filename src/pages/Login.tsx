@@ -67,6 +67,7 @@ const Login = () => {
           password: formData.password,
           
         }),
+        credentials: "include",
       });
 
       // Parse response only ONCE
@@ -77,6 +78,7 @@ const Login = () => {
         login(data.user);
         // navigate("/");
         alert("Signin successful: " + JSON.stringify(data));
+       window.location.href = data.redirect + '/?session_id=' + data.session_id;
       } else {
         console.error("Signin error:", data);
         alert("Signin failed: " + (data.message || "Unknown error"));

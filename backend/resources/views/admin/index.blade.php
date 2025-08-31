@@ -1,3 +1,4 @@
+{{-- @dd(session('admin_id')) --}}
 @extends('layouts.adminlayout')
 
 
