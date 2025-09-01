@@ -9,8 +9,8 @@
             <div class="card-header pb-0 p-3">
                 <h6 class="mb-2">Manage Users</h6>
             </div>
-            <div class="card-body">
-                <table class="table table-hover">
+            <div class="card-body table-responsive">
+                <table class="table table-hover jsu">
                     <thead>
                         <tr>
                             <th>#</th>
