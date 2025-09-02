@@ -17,6 +17,8 @@ class AdminController extends Controller
     ];
     public function index()
     {
+
+        
         return view('admin.index', ['info' => $this->info]);
     }
     public function hero()
@@ -35,8 +37,8 @@ class AdminController extends Controller
         $category = ProductCategoryModel::find($id);
         $products = ProductModel::where('category_id', $id)->get();
         if ($category) {
-            return view('admin.product_category_details', ['info'=>$this->info, 'category' => $category, 'products' => $products]);
-        }else {
+            return view('admin.product_category_details', ['info' => $this->info, 'category' => $category, 'products' => $products]);
+        } else {
             return redirect()->route('admin.product_category')->with('error', 'Product category not found.');
         }
     }

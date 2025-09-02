@@ -40,6 +40,7 @@
                             <input type="text" class="form-control" id="productName" name="productName"
                                 placeholder="Enter product name" required>
                         </div>
+
                         @error('productImage')
                                 <script>
                                     iziToast.show({
@@ -77,6 +78,40 @@
                             <label for="productPrice">Product Price</label>
                             <input type="text" class="form-control" id="productPrice" name="productPrice"
                                 placeholder="Enter product price" required>
+                        </div>
+                        @error('productBenefits')
+                                <script>
+                                    iziToast.show({
+                                        title: 'Error',
+                                        message: "{{ $message }}",
+                                        color: 'red'
+                                    });
+                                </script>
+                            @enderror
+                        <div class="form-group mb-3">
+                            <label for="productBenefits">Product Benefits</label>
+                            <input type="text" class="form-control" id="productBenefits" name="productBenefits"
+                                placeholder="Enter product benefits separated by comma" required>
+                        </div>
+                        @error('productBadges')
+                                <script>
+                                    iziToast.show({
+                                        title: 'Error',
+                                        message: "{{ $message }}",
+                                        color: 'red'
+                                    });
+                                </script>
+                            @enderror
+                        <div class="form-group mb-3">
+                            <label for="productBadges">Product Badges</label>
+                            <select class="form-control" id="productBadges" name="productBadges" required>
+                                <option value="">Select a Badge</option>
+                                
+                                <option value="bestseller">Bestseller</option>
+                                <option value="stem cell">Stem cell</option>
+                                <option value="premium">Premium</option>
+                            </select>
+                            
                         </div>
                         @error('productDescription')
                                 <script>

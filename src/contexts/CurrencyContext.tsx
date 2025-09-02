@@ -19,8 +19,8 @@ interface CurrencyContextType {
 
 const currencies: Currency[] = [
   { code: 'KSh', symbol: 'KSh', name: 'Kenyan Shilling', exchangeRate: 1 },
-  { code: 'USD', symbol: '$', name: 'US Dollar', exchangeRate: 0.0073 }, // 1 USD = ~137 KSh
-  { code: 'NGN', symbol: '₦', name: 'Nigerian Naira', exchangeRate: 6.2 }, // 1 NGN = ~0.16 KSh
+  { code: 'USD', symbol: '$', name: 'US Dollar', exchangeRate: 0.0075 }, // 1 USD = ~137 KSh
+  { code: 'NGN', symbol: '₦', name: 'Nigerian Naira', exchangeRate: 1.12 }, // 1 NGN = ~0.16 KSh
   { code: 'GHS', symbol: '₵', name: 'Ghanaian Cedi', exchangeRate: 0.062 }, // 1 GHS = ~16 KSh
   { code: 'EUR', symbol: '€', name: 'Euro', exchangeRate: 0.006 }, // 1 EUR = ~167 KSh
   { code: 'GBP', symbol: '£', name: 'British Pound', exchangeRate: 0.0052 }, // 1 GBP = ~192 KSh

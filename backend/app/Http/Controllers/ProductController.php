@@ -10,11 +10,14 @@ class ProductController extends Controller
 {
     public function addProduct(Request $request)
     {
+        
         $rules = [
             'productName' => 'required|string|max:255|unique:product,productName',
             'productImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048',
             'category_id' => 'required|integer',
             'productPrice' => 'required|numeric|min:0',
+            'productBenefits' => 'required|string',
+            'productBadges' => 'required|string',
             'productDescription' => 'nullable|string',
         ];
         $messages = [
@@ -23,6 +26,8 @@ class ProductController extends Controller
             'productImage.required' => 'Please upload a product image.',
             'category_id.required' => 'Please select a category.',
             'productPrice.required' => 'Please enter the product price.',
+            'productBenefits.required' => 'Please enter the product benefits.',
+            'productBadges.required' => 'Please select the product badges.',
             'productDescription.string' => 'The product description must be a string.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -39,6 +44,8 @@ class ProductController extends Controller
                  'productPrice' => $request->input('productPrice'),
                  'oldProductPrice' => $oldProductPrice,
                  'productQuantity' => 0,
+                 'productBenefits' => $request->input('productBenefits'),
+                 'productBadges' => $request->input('productBadges'),
                  'productDescription' => $request->input('productDescription'),
              ]);
              if ($addproduct) {
@@ -130,7 +137,7 @@ class ProductController extends Controller
 
     // api endpoint to react
     public function allproducts(){
-        $data = ProductModel::all();
+        $data = ProductModel::with('category')->get();
         return response()->json($data);
     }
 }

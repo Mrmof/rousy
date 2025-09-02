@@ -19,6 +19,8 @@ return new class extends Migration
             $table->decimal('productPrice', 10, 2);
             $table->decimal('oldProductPrice', 10, 2)->nullable();
             $table->integer('productQuantity')->default(0);
+            $table->longText('productBenefits');
+            $table->string('productBadges');
             $table->longText('productDescription')->nullable();
             $table->timestamps();
         });

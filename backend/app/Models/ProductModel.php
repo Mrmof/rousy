@@ -15,6 +15,14 @@ class ProductModel extends Model
         'productPrice',
         'oldProductPrice',
         'productQuantity',
+        'productBenefits',
+        'productBadges',
         'productDescription',
     ];
+    // Product belongs to a category
+    public function category()
+    {
+        return $this->belongsTo(ProductCategoryModel::class, 'id');
+    }
+
 }

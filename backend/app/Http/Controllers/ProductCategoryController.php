@@ -54,6 +54,11 @@ class ProductCategoryController extends Controller
             return redirect()->route('admin.product_category')->with('error', 'Product category not found.');
         }
     }
+
+    public function getCategories(){
+        $data = ProductCategoryModel::all();
+        return response()->json($data);
+    }
     
     
 }

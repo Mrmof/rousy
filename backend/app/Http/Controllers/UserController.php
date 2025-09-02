@@ -48,7 +48,7 @@ class UserController extends Controller
         if ($admin) {
             if ($request->input('password') === $admin->password) {
                 session(['admin_id' => $admin->id]);
-                return response()->json(['message' => 'Admin signed in successfully', 'redirect' => url('/'), 'session_id' => session('admin_id')], 200);
+                return response()->json(['message' => 'Admin signed in successfully', 'user' => $admin, 'redirect' => url('/'), 'session_id' => session('admin_id')], 200);
             }
         } else {
             $user = User::where('email', $request->input('email'))

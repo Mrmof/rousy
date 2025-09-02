@@ -191,14 +191,14 @@ const ProductShowcase = () => {
           id: item.id,
           name: item.productName,
           price: `KSh ${item.productPrice}`,
-          originalPrice: `KSh ${item.oldProductPrice || item.productPrice}`,
+          originalPrice: `KSh ${item.oldProductPrice}`,
           image: `http://127.0.0.1:8000/product_images/${item.productImage}`,
           rating: 5.0, // or item.rating if you store it
           reviews: 100, // or item.reviews if you store it
           badges: ["Bestseller"], // can be dynamic later
           benefits: item.productBenefits ? item.productBenefits.split(",") : [],
           description: item.productDescription
-            ? [item.productDescription]
+            ? item.productDescription.split(",").map((d: string) => d.trim()) // split and trim spaces
             : [],
           category: item.category?.category_name || "General",
           inStock: item.productQuantity > 0,
@@ -265,8 +265,8 @@ const ProductShowcase = () => {
                 variant="ghost"
                 size="icon"
                 className={`absolute top-2 md:top-4 right-2 md:right-4 backdrop-blur-sm w-6 h-6 md:w-8 md:h-8 transition-all duration-200 ${isProductSaved(product.id)
-                    ? 'bg-primary text-primary-foreground hover:bg-primary/80'
-                    : 'bg-background/80 hover:bg-primary hover:text-primary-foreground'
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/80'
+                  : 'bg-background/80 hover:bg-primary hover:text-primary-foreground'
                   }`}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -287,8 +287,8 @@ const ProductShowcase = () => {
                     <Star
                       key={i}
                       className={`h-3 w-3 md:h-4 md:w-4 ${i < Math.floor(product.rating)
-                          ? "fill-primary text-primary"
-                          : "text-muted-foreground"
+                        ? "fill-primary text-primary"
+                        : "text-muted-foreground"
                         }`}
                     />
                   ))}
@@ -411,9 +411,9 @@ const ProductShowcase = () => {
                         <Badge
                           key={badge}
                           className={`text-xs px-2 py-1 ${badge === "Bestseller" ? "bg-primary text-primary-foreground" :
-                              badge === "New" ? "bg-accent text-accent-foreground" :
-                                badge === "Premium" ? "bg-gradient-primary text-primary-foreground" :
-                                  "bg-secondary text-secondary-foreground"
+                            badge === "New" ? "bg-accent text-accent-foreground" :
+                              badge === "Premium" ? "bg-gradient-primary text-primary-foreground" :
+                                "bg-secondary text-secondary-foreground"
                             }`}
                         >
                           {badge}
@@ -430,8 +430,8 @@ const ProductShowcase = () => {
                         <Star
                           key={i}
                           className={`h-5 w-5 ${i < Math.floor(selectedProduct.rating)
-                              ? "fill-primary text-primary"
-                              : "text-muted-foreground"
+                            ? "fill-primary text-primary"
+                            : "text-muted-foreground"
                             }`}
                         />
                       ))}

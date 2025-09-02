@@ -94,7 +94,7 @@ const Navigation = () => {
             )} */}
             {isAuthenticated && (
               <>
-                {user?.role === "admin" ? (
+                {user?.name === "Super Admin" ? (
                   <Link
                     to="http://127.0.0.1:8000/admin"
                     className="text-muted-foreground hover:text-primary transition-colors"
@@ -103,7 +103,7 @@ const Navigation = () => {
                   </Link>
                 ) : (
                   <Link
-                    to="http://127.0.0.1:8000/dashboard/orders"
+                    to="http://127.0.0.1:8000/user"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     <User className="h-5 w-5" />

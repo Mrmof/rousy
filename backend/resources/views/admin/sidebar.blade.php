@@ -3,7 +3,7 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=""
+        <a class="navbar-brand m-0" href="http://127.0.0.1:8080"
             target="_blank">
             {{-- <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100"
                 alt="main_logo"> --}}
@@ -16,8 +16,14 @@
 
             <div>
                 <h4 class="text-white">
-                    Rosy <span class="text-primary" style="color: #99ff00e6">Herbal</span> Care
+                    Rosy <span class="text-primary" style="color: #99ff00e6">Herbal</span> Care 
                 </h4>
+                {{-- <p class="text-white">
+                    @php
+                    echo session('admin_id')
+                @endphp
+                </p> --}}
+                
                 
             </div>
         </a>
