@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, Heart, ShoppingCart, Zap, ArrowRight, CheckCircle, X } from "lucide-react";
@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
+
 const ProductShowcase = () => {
   // Real cart functionality
   const { addToCart } = useCart();
   const { convertPrice } = useCurrency();
-  
+
   // Toast notification state
   const [toasts, setToasts] = useState([]);
   // Saved products state
@@ -27,15 +28,15 @@ const ProductShowcase = () => {
       message: message,
       visible: true
     };
-    
+
     setToasts(prev => [...prev, newToast]);
-    
+
     // Auto remove after 3 seconds
     setTimeout(() => {
-      setToasts(prev => prev.map(toast => 
+      setToasts(prev => prev.map(toast =>
         toast.id === toastId ? { ...toast, visible: false } : toast
       ));
-      
+
       // Remove from array after animation
       setTimeout(() => {
         setToasts(prev => prev.filter(toast => toast.id !== toastId));
@@ -61,7 +62,7 @@ const ProductShowcase = () => {
 
   const handleSaveProduct = (product) => {
     const isAlreadySaved = savedProducts.some(saved => saved.id === product.id);
-    
+
     if (isAlreadySaved) {
       setSavedProducts(prev => prev.filter(saved => saved.id !== product.id));
       showToast(`${product.name} removed from saved`);
@@ -81,105 +82,132 @@ const ProductShowcase = () => {
     return savedProducts.some(saved => saved.id === productId);
   };
 
-  const products = [
-    {
-      id: 1,
-      name: "FAFORON",
-      price: "KSh 3,500",
-      originalPrice: "KSh 4,100",
-      image: "/src/images/Faforon box screen 15 HD.png",
-      rating: 5.0,
-      reviews: 346,
-      badges: ["Bestseller", "New"],
-      benefits: ["Repairs cells", "Anti-Aging", "Replaces dead cells", "Immune Boost"],
-      description: [
-        "100% organic blood builder", 
-        "Boosts Immune", 
-        "Energizes", 
-        "Rejuvenates cells", 
-        "Restores cells", 
-        "Repairs cells", 
-        "Replicates cells", 
-        "Replaces dead cells and detoxifies the body."
-      ],
-      category: "Stem-Cell-&-detox",
-      inStock: true
-    },
-    {
-      id: 2,
-      name: "SALUD EXTRA",
-      price: "KSh 3,600",
-      originalPrice: "KSh 4,200",
-      image: "/src/images/Salud Box screen2 HD.png",
-      rating: 4.9,
-      reviews: 157,
-      badges: ["Stem Cell"],
-      benefits: ["Liver Cleanse", "Blood Purification", "Reduces Chronic Inflammation", "Energy Boost"],
-      description: [
-        "Treats Chronic Inflammation", 
-        "Anti-tumour", 
-        "Diarrhea", 
-        "Protects The Liver against Toxins", 
-        "Supports Cardiovascular Health", 
-        "Alleviates Symptoms Of Asthma", 
-        "Purifies The Blood"
-      ],
-      category: "Stem-Cell-&-detox",
-      inStock: true
-    },
-    {
-      id: 3,
-      name: "SPIDEX 20",
-      price: "KSh 2,800",
-      originalPrice: "KSh 3,500",
-      image: "/src/images/Spidex 20 Box view Hd.png",
-      rating: 4.9,
-      reviews: 342,
-      badges: ["Premium", "Hospital Grade"],
-      benefits: ["Aids Blood Circulation", "Boosts Libido", "Chest Pain", "Enhances Female Fertility"],
-      description: [
-                   "FEMALE SEXUAL HEALTH", 
-                   "Boosts Libido", 
-                   "Aids Fertility", 
-                   "Promotes Healthy Cervical Fluid", 
-                   "Alleviates Chest Pain", 
-                   "Enhances Liver Function", 
-                   "Normalizes Menstrual Disorder", 
-                   "Supports Brain Function", 
-                   "Balances Hormones."
-      ],
-      category: "Natural-Supplements",
-      inStock: true
-    },
-        {
-      id: 3,
-      name: "SPIDEX 21",
-      price: "KSh 2,800",
-      originalPrice: "KSh 3,500",
-      image: "/src/images/Spidex 21 Box screen Hd.png",
-      rating: 4.9,
-      reviews: 342,
-      badges: ["Premium", "Hospital Grade"],
-      benefits: ["Aids Blood Circulation", "Boosts Sperm Quality", "For Prostate Health", "Enhances Male Fertility"],
-      description: [
-        "MEN SEXUAL HEALTH", 
-        "Skyrocket your confidence as a man", 
-        "Boosts Libido", 
-        "Enhances Male Fertility", 
-        "Rockets Erection", 
-        "Boosts Sperm Quality", 
-        "Supports Prostate Health", 
-        "Helps Improve Memory", 
-        "Supports Brain Function", 
-        "Improves Stress Resistance", 
-        "Alleviates Waist Pain", 
-        "Energizes & Aids Blood Circulation"
-      ],
-      category: "Natural-Supplements",
-      inStock: true
-    }
+  // const products = [
+  //   {
+  //     id: 1,
+  //     name: "FAFORON",
+  //     price: "KSh 3,500",
+  //     originalPrice: "KSh 4,100",
+  //     image: "/src/images/Faforon box screen 15 HD.png",
+  //     rating: 5.0,
+  //     reviews: 346,
+  //     badges: ["Bestseller", "New"],
+  //     benefits: ["Repairs cells", "Anti-Aging", "Replaces dead cells", "Immune Boost"],
+  //     description: [
+  //       "100% organic blood builder", 
+  //       "Boosts Immune", 
+  //       "Energizes", 
+  //       "Rejuvenates cells", 
+  //       "Restores cells", 
+  //       "Repairs cells", 
+  //       "Replicates cells", 
+  //       "Replaces dead cells and detoxifies the body."
+  //     ],
+  //     category: "Stem-Cell-&-detox",
+  //     inStock: true
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "SALUD EXTRA",
+  //     price: "KSh 3,600",
+  //     originalPrice: "KSh 4,200",
+  //     image: "/src/images/Salud Box screen2 HD.png",
+  //     rating: 4.9,
+  //     reviews: 157,
+  //     badges: ["Stem Cell"],
+  //     benefits: ["Liver Cleanse", "Blood Purification", "Reduces Chronic Inflammation", "Energy Boost"],
+  //     description: [
+  //       "Treats Chronic Inflammation", 
+  //       "Anti-tumour", 
+  //       "Diarrhea", 
+  //       "Protects The Liver against Toxins", 
+  //       "Supports Cardiovascular Health", 
+  //       "Alleviates Symptoms Of Asthma", 
+  //       "Purifies The Blood"
+  //     ],
+  //     category: "Stem-Cell-&-detox",
+  //     inStock: true
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "SPIDEX 20",
+  //     price: "KSh 2,800",
+  //     originalPrice: "KSh 3,500",
+  //     image: "/src/images/Spidex 20 Box view Hd.png",
+  //     rating: 4.9,
+  //     reviews: 342,
+  //     badges: ["Premium", "Hospital Grade"],
+  //     benefits: ["Aids Blood Circulation", "Boosts Libido", "Chest Pain", "Enhances Female Fertility"],
+  //     description: [
+  //                  "FEMALE SEXUAL HEALTH", 
+  //                  "Boosts Libido", 
+  //                  "Aids Fertility", 
+  //                  "Promotes Healthy Cervical Fluid", 
+  //                  "Alleviates Chest Pain", 
+  //                  "Enhances Liver Function", 
+  //                  "Normalizes Menstrual Disorder", 
+  //                  "Supports Brain Function", 
+  //                  "Balances Hormones."
+  //     ],
+  //     category: "Natural-Supplements",
+  //     inStock: true
+  //   },
+  //       {
+  //     id: 3,
+  //     name: "SPIDEX 21",
+  //     price: "KSh 2,800",
+  //     originalPrice: "KSh 3,500",
+  //     image: "/src/images/Spidex 21 Box screen Hd.png",
+  //     rating: 4.9,
+  //     reviews: 342,
+  //     badges: ["Premium", "Hospital Grade"],
+  //     benefits: ["Aids Blood Circulation", "Boosts Sperm Quality", "For Prostate Health", "Enhances Male Fertility"],
+  //     description: [
+  //       "MEN SEXUAL HEALTH", 
+  //       "Skyrocket your confidence as a man", 
+  //       "Boosts Libido", 
+  //       "Enhances Male Fertility", 
+  //       "Rockets Erection", 
+  //       "Boosts Sperm Quality", 
+  //       "Supports Prostate Health", 
+  //       "Helps Improve Memory", 
+  //       "Supports Brain Function", 
+  //       "Improves Stress Resistance", 
+  //       "Alleviates Waist Pain", 
+  //       "Energizes & Aids Blood Circulation"
+  //     ],
+  //     category: "Natural-Supplements",
+  //     inStock: true
+  //   }
 
-  ];
+  // ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/products") // Your Laravel API
+      .then((res) => res.json())
+      .then((data) => {
+        const formatted = data.map((item) => ({
+          id: item.id,
+          name: item.productName,
+          price: `KSh ${item.productPrice}`,
+          originalPrice: `KSh ${item.oldProductPrice || item.productPrice}`,
+          image: `http://127.0.0.1:8000/product_images/${item.productImage}`,
+          rating: 5.0, // or item.rating if you store it
+          reviews: 100, // or item.reviews if you store it
+          badges: ["Bestseller"], // can be dynamic later
+          benefits: item.productBenefits ? item.productBenefits.split(",") : [],
+          description: item.productDescription
+            ? [item.productDescription]
+            : [],
+          category: item.category?.category_name || "General",
+          inStock: item.productQuantity > 0,
+        }));
+        setProducts(formatted);
+      })
+      .catch((err) => console.error("Error fetching products:", err));
+  }, []);
+
 
   return (
     <section className="py-8 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -210,21 +238,20 @@ const ProductShowcase = () => {
                 alt={product.name}
                 className="w-full h-32 sm:h-40 md:h-56 object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              
+
               {/* Badges */}
               <div className="absolute top-2 md:top-4 left-2 md:left-4 flex flex-wrap gap-1 md:gap-2">
                 {product.badges.slice(0, 1).map((badge) => (
                   <Badge
                     key={badge}
                     className={`
-                      text-xs px-1 py-0.5 md:px-2 md:py-1 ${
-                        badge === "Bestseller"
-                          ? "bg-primary text-primary-foreground"
-                          : badge === "New"
+                      text-xs px-1 py-0.5 md:px-2 md:py-1 ${badge === "Bestseller"
+                        ? "bg-primary text-primary-foreground"
+                        : badge === "New"
                           ? "bg-accent text-accent-foreground"
                           : badge === "Premium"
-                          ? "bg-gradient-primary text-primary-foreground"
-                          : "bg-secondary text-secondary-foreground"
+                            ? "bg-gradient-primary text-primary-foreground"
+                            : "bg-secondary text-secondary-foreground"
                       }
                     `}
                   >
@@ -237,19 +264,17 @@ const ProductShowcase = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className={`absolute top-2 md:top-4 right-2 md:right-4 backdrop-blur-sm w-6 h-6 md:w-8 md:h-8 transition-all duration-200 ${
-                  isProductSaved(product.id) 
-                    ? 'bg-primary text-primary-foreground hover:bg-primary/80' 
+                className={`absolute top-2 md:top-4 right-2 md:right-4 backdrop-blur-sm w-6 h-6 md:w-8 md:h-8 transition-all duration-200 ${isProductSaved(product.id)
+                    ? 'bg-primary text-primary-foreground hover:bg-primary/80'
                     : 'bg-background/80 hover:bg-primary hover:text-primary-foreground'
-                }`}
+                  }`}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleSaveProduct(product);
                 }}
               >
-                <Heart className={`h-3 w-3 md:h-4 md:w-4 transition-all duration-200 ${
-                  isProductSaved(product.id) ? 'fill-current' : ''
-                }`} />
+                <Heart className={`h-3 w-3 md:h-4 md:w-4 transition-all duration-200 ${isProductSaved(product.id) ? 'fill-current' : ''
+                  }`} />
               </Button>
             </div>
 
@@ -261,11 +286,10 @@ const ProductShowcase = () => {
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-3 w-3 md:h-4 md:w-4 ${
-                        i < Math.floor(product.rating)
+                      className={`h-3 w-3 md:h-4 md:w-4 ${i < Math.floor(product.rating)
                           ? "fill-primary text-primary"
                           : "text-muted-foreground"
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
@@ -310,8 +334,8 @@ const ProductShowcase = () => {
                     <p className="text-xs text-muted-foreground hidden md:block">Incl. VAT & Shipping</p>
                   </div>
                 </div>
-                
-                <Button 
+
+                <Button
                   className="btn-neon group w-full text-xs md:text-sm py-2 md:py-3"
                   onClick={(e) => handleAddToCart({
                     id: product.id,
@@ -338,8 +362,8 @@ const ProductShowcase = () => {
             className={`
               flex items-center gap-3 bg-primary text-primary-foreground px-4 py-3 rounded-lg shadow-lg border border-primary/20
               transform transition-all duration-300 ease-out
-              ${toast.visible 
-                ? 'translate-x-0 opacity-100 scale-100' 
+              ${toast.visible
+                ? 'translate-x-0 opacity-100 scale-100'
                 : 'translate-x-full opacity-0 scale-95'
               }
             `}
@@ -381,17 +405,16 @@ const ProductShowcase = () => {
                       alt={selectedProduct.name}
                       className="w-full h-80 object-cover"
                     />
-                    
+
                     <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                       {selectedProduct.badges.map((badge) => (
                         <Badge
                           key={badge}
-                          className={`text-xs px-2 py-1 ${
-                            badge === "Bestseller" ? "bg-primary text-primary-foreground" :
-                            badge === "New" ? "bg-accent text-accent-foreground" :
-                            badge === "Premium" ? "bg-gradient-primary text-primary-foreground" :
-                            "bg-secondary text-secondary-foreground"
-                          }`}
+                          className={`text-xs px-2 py-1 ${badge === "Bestseller" ? "bg-primary text-primary-foreground" :
+                              badge === "New" ? "bg-accent text-accent-foreground" :
+                                badge === "Premium" ? "bg-gradient-primary text-primary-foreground" :
+                                  "bg-secondary text-secondary-foreground"
+                            }`}
                         >
                           {badge}
                         </Badge>
@@ -406,11 +429,10 @@ const ProductShowcase = () => {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`h-5 w-5 ${
-                            i < Math.floor(selectedProduct.rating)
+                          className={`h-5 w-5 ${i < Math.floor(selectedProduct.rating)
                               ? "fill-primary text-primary"
                               : "text-muted-foreground"
-                          }`}
+                            }`}
                         />
                       ))}
                     </div>
@@ -463,8 +485,8 @@ const ProductShowcase = () => {
                   </div>
 
                   <div className="flex gap-4">
-                    <Button 
-                      className="flex-1 btn-neon" 
+                    <Button
+                      className="flex-1 btn-neon"
                       disabled={!selectedProduct.inStock}
                       onClick={() => {
                         handleAddToCart({
@@ -479,9 +501,9 @@ const ProductShowcase = () => {
                       <ShoppingCart className="h-5 w-5 mr-2" />
                       {selectedProduct.inStock ? "Add to Cart" : "Out of Stock"}
                     </Button>
-                    
-                    <Button 
-                      variant="outline" 
+
+                    <Button
+                      variant="outline"
                       size="icon"
                       onClick={(e) => {
                         e.stopPropagation();

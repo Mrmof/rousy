@@ -77,7 +77,7 @@ const Login = () => {
         console.log("Signin successful:", data);
         login(data.user);
         // navigate("/");
-        alert("Signin successful: " + JSON.stringify(data));
+        // alert("Signin successful: " + JSON.stringify(data));
        window.location.href = data.redirect + '/?session_id=' + data.session_id;
       } else {
         console.error("Signin error:", data);

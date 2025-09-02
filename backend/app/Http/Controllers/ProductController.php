@@ -126,4 +126,11 @@ class ProductController extends Controller
                 return redirect()->back()->with('error', 'Product not found.');
             }
     }
+
+
+    // api endpoint to react
+    public function allproducts(){
+        $data = ProductModel::all();
+        return response()->json($data);
+    }
 }
