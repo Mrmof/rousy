@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HeroModel;
+use App\Models\OrderModel;
 use App\Models\ProductCategoryModel;
 use App\Models\ProductModel;
 use App\Models\User;
@@ -17,9 +18,15 @@ class AdminController extends Controller
     ];
     public function index()
     {
-
-        
-        return view('admin.index', ['info' => $this->info]);
+        $totalOrders = OrderModel::count();
+        $totalUsers = User::count();
+        $pendingOrders = OrderModel::where('status', 'pending')->count();
+        $paidOrders = OrderModel::where('status', 'paid')->count();
+        $sales = OrderModel::where('status', 'paid')->sum('amount');
+        $products = ProductModel::count();
+        $productCategory = ProductCategoryModel::count();
+        $orders = OrderModel::latest()->take(10)->get();
+        return view('admin.index', ['info' => $this->info, 'totalOrders' => $totalOrders, 'pendingOrders' => $pendingOrders, 'paidOrders' => $paidOrders, 'products' => $products, 'sales' => $sales, 'productCategory' => $productCategory, 'totalUsers' => $totalUsers, 'orders'=>$orders]);
     }
     public function hero()
     {
@@ -70,6 +77,7 @@ class AdminController extends Controller
     }
     public function orders()
     {
-        return view('admin.orders', ['info' => $this->info]);
+        $orders = OrderModel::all();
+        return view('admin.orders', ['info' => $this->info, 'orders' => $orders]);
     }
 }

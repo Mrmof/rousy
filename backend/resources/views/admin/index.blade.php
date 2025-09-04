@@ -10,9 +10,9 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Profit</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
                                 <h5 class="font-weight-bolder">
-                                    $53,000
+                                    Ksh {{ $sales}}
                                 </h5>
                                 <p class="mb-0">
                                     {{-- <span class="text-success text-sm font-weight-bolder">+55%</span>
@@ -37,7 +37,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Orders</p>
                                 <h5 class="font-weight-bolder">
-                                    2,300
+                                    {{ $totalOrders }}
                                 </h5>
                                 <p class="mb-0">
                                     {{-- <span class="text-success text-sm font-weight-bolder">+3%</span>
@@ -62,7 +62,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">No. of Clients</p>
                                 <h5 class="font-weight-bolder">
-                                    +3,462
+                                    {{ $totalUsers }}
                                 </h5>
                                 <p class="mb-0">
                                     {{-- <span class="text-danger text-sm font-weight-bolder">-2%</span>
@@ -85,9 +85,9 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Pending Orders</p>
                                 <h5 class="font-weight-bolder">
-                                    $103,430
+                                    {{ $pendingOrders }}
                                 </h5>
                                 <p class="mb-0">
                                     {{-- <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -96,8 +96,8 @@
                             </div>
                         </div>
                         <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                                <i class="icofont-list text-lg opacity-10" aria-hidden="true"></i>
+                            <div class="icon icon-shape bg-warning shadow-warning text-center rounded-circle">
+                                <i class="icofont-horn text-lg opacity-10" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -110,9 +110,9 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Pending Orders</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Paid Orders</p>
                                 <h5 class="font-weight-bolder">
-                                    $103,430
+                                    {{ $paidOrders }}
                                 </h5>
                                 <p class="mb-0">
                                     {{-- <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -137,7 +137,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Delivered Orders</p>
                                 <h5 class="font-weight-bolder">
-                                    $103,430
+                                    103,430
                                 </h5>
                                 <p class="mb-0">
                                     {{-- <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -162,7 +162,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Products</p>
                                 <h5 class="font-weight-bolder">
-                                    $103,430
+                                    {{ $products}}
                                 </h5>
                                 <p class="mb-0">
                                     {{-- <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -187,7 +187,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Product Category</p>
                                 <h5 class="font-weight-bolder">
-                                    $103,430
+                                    {{ $productCategory}}
                                 </h5>
                                 <p class="mb-0">
                                     {{-- <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -227,7 +227,7 @@
                 <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
                     <div class="carousel-inner border-radius-lg h-100">
                         <div class="carousel-item h-100 active" style="background-image: url('../assets/img/carousel-1.jpg');
-          background-size: cover;">
+                          background-size: cover;">
                             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                 <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                     <i class="ni ni-camera-compact text-dark opacity-10"></i>
@@ -237,7 +237,7 @@
                             </div>
                         </div>
                         <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-2.jpg');
-          background-size: cover;">
+                          background-size: cover;">
                             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                 <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                     <i class="ni ni-bulb-61 text-dark opacity-10"></i>
@@ -249,7 +249,7 @@
                             </div>
                         </div>
                         <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-3.jpg');
-          background-size: cover;">
+                          background-size: cover;">
                             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                 <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                     <i class="ni ni-trophy text-dark opacity-10"></i>
@@ -283,133 +283,70 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table align-items-center ">
+
                         <tbody>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="../assets/img/icons/flags/US.png" alt="Country flag">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Category:</p>
-                                            <h6 class="text-sm mb-0">Milk</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Quantity:</p>
-                                        <h6 class="text-sm mb-0">2500</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Cost:</p>
-                                        <h6 class="text-sm mb-0">$230,900</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Buyer:</p>
-                                        <h6 class="text-sm mb-0">James Smith</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="../assets/img/icons/flags/US.png" alt="Country flag">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Category:</p>
-                                            <h6 class="text-sm mb-0">Milk</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Quantity:</p>
-                                        <h6 class="text-sm mb-0">2500</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Cost:</p>
-                                        <h6 class="text-sm mb-0">$230,900</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Buyer:</p>
-                                        <h6 class="text-sm mb-0">James Smith</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="../assets/img/icons/flags/US.png" alt="Country flag">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Category:</p>
-                                            <h6 class="text-sm mb-0">Milk</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Quantity:</p>
-                                        <h6 class="text-sm mb-0">2500</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Cost:</p>
-                                        <h6 class="text-sm mb-0">$230,900</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Buyer:</p>
-                                        <h6 class="text-sm mb-0">James Smith</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="../assets/img/icons/flags/US.png" alt="Country flag">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Category:</p>
-                                            <h6 class="text-sm mb-0">Milk</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Quantity:</p>
-                                        <h6 class="text-sm mb-0">2500</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Cost:</p>
-                                        <h6 class="text-sm mb-0">$230,900</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Buyer:</p>
-                                        <h6 class="text-sm mb-0">James Smith</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            
+                            @php $i = 1; @endphp
+
+                            @foreach($orders as $order)
+                                @php
+                                    $items = json_decode($order->items, true);
+                                    $user = \App\Models\User::find($order->user_id);
+                                    $customername = $user ? $user->name : '';
+                                @endphp
+
+                                @if(is_array($items))
+                                    @foreach($items as $item)
+                                        <tr>
+
+                                            <td>
+                                                <div class="text-center">
+                                                    <p class="text-xs font-weight-bold mb-0">Customer:</p>
+                                                    <h6 class="text-sm mb-0">{{ $customername }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <p class="text-xs font-weight-bold mb-0">Cost:</p>
+                                                    <h6 class="text-sm mb-0">{{ number_format($order->amount, 2) }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <p class="text-xs font-weight-bold mb-0">Item:</p>
+                                                    <h6 class="text-sm mb-0">{{  $item['name'] }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <p class="text-xs font-weight-bold mb-0">Quantity:</p>
+                                                    <h6 class="text-sm mb-0">{{  $item['quantity'] }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <p class="text-xs font-weight-bold mb-0">Date:</p>
+                                                    <h6 class="text-sm mb-0">{{ $order->created_at->format('Y-m-d') }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <p class="text-xs font-weight-bold mb-0">Status:</p>
+                                                    <h6 class="text-sm mb-0">@if($order->status === 'paid')
+                                                        <span class="badge bg-success">Completed</span>
+                                                    @elseif($order->status === 'pending')
+                                                            <span class="badge bg-warning">Pending</span>
+                                                        @else
+                                                            <span class="badge bg-danger">{{ ucfirst($order->status) }}</span>
+                                                        @endif
+                                                    </h6>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            @endforeach
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -432,9 +369,9 @@
                                             sold</span></span>
                                 </div>
                             </div>
-                            
+
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>

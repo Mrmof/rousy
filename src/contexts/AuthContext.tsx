@@ -27,7 +27,7 @@
 //   const login = (userData: User) => {
 //     setUser(userData);
 //     localStorage.setItem("user", JSON.stringify(userData)); 
-    
+
 //   };
 
 //   const logout = () => {
@@ -41,7 +41,7 @@
 //       const updatedUser = { ...user, ...userData };
 //       setUser(updatedUser);
 //       localStorage.setItem("user", JSON.stringify(updatedUser)); 
-      
+
 //     }
 //   };
 
@@ -97,7 +97,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (e) {
+        console.error("Invalid JSON in localStorage for 'user':", e);
+      }
     }
   }, []);
 
